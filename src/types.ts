@@ -21,3 +21,7 @@ export interface MarsPhoto {
         full_name: string;
     };
 }
+
+export interface MarsPhotosApiResponse {
+    photos: MarsPhoto[];
+}
