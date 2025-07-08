@@ -4,6 +4,7 @@ import { CameraType, MarsPhotosApiResponse } from "./types";
 import cron from 'node-cron';
 import fs from 'fs';
 import path from 'path';
+require('dotenv').config()
 
 const app = express();
 const port = 8000;
@@ -36,9 +37,9 @@ router.get('/rovers/:rover/photos/:camera', async (req: any, res: any) => {
         api_key: process.env.NASA_API_KEY,
     };
 
-    if(sol) {
+    if (sol) {
         params.sol = sol;
-    } else if(earth_date) {
+    } else if (earth_date) {
         params.earth_date = earth_date;
     } else {
         params.sol = 1000;
@@ -49,7 +50,7 @@ router.get('/rovers/:rover/photos/:camera', async (req: any, res: any) => {
     }
 
     try {
-        const response = await axios.get<MarsPhotosApiResponse >(
+        const response = await axios.get<MarsPhotosApiResponse>(
             `https://api.nasa.gov/mars-photos/api/v1/rovers/${rover}/photos`,
             { params }
         );
@@ -88,7 +89,7 @@ if (!fs.existsSync(logsDir)) {
 cron.schedule('*/30 * * * *', async () => {
     try {
         const timestamp = new Date().toISOString();
-        const response = await axios.get<MarsPhotosApiResponse >(
+        const response = await axios.get<MarsPhotosApiResponse>(
             `https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos`,
             {
             params: {
