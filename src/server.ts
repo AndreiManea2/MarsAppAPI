@@ -6,6 +6,7 @@ import fs from 'fs';
 import path from 'path';
 require('dotenv').config()
 
+//  Variables
 const app = express();
 const port = 8000;
 
